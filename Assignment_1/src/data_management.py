@@ -1,4 +1,5 @@
 import pandas as pd
+from pre_processing import encodeCategoricalFeatures
 
 
 def getCategoricalColumns(first_row):
@@ -45,14 +46,18 @@ def getData(dataset):
     """
 
     # Load the dataset.
-    data = pd.read_csv(dataset, header=1, sep=';')
-    X_train = data.iloc[:, :-1].values
-    y_train = data.iloc[:, -1].values
+    data = pd.read_csv(dataset, header=0, sep=';')
+    df = pd.DataFrame(data)
+    X_train = df.iloc[:, :-1].values
+    y_train = df.iloc[:, -1].values
 
     categorical_indexes = getCategoricalColumns(X_train[0])
+
+    # Encode categorical values.
     if categorical_indexes != []:
-        # TODO: Encode categorical features with the indexes of the columns:
-        # https://scikit-learn.org/stable/modules/preprocessing.html
-        print("CATEGORICAL")
+        # Encode categorical features with the indexes of the columns.
+        df = encodeCategoricalFeatures(df, categorical_indexes)
+        X_train = df.iloc[:, :-1].values
+        y_train = df.iloc[:, -1].values
 
     return X_train, y_train

@@ -1,5 +1,3 @@
-import pandas as pd
-import numpy as np
 import click
 import matplotlib.pyplot as plt
 from sklearn import tree
@@ -24,10 +22,14 @@ def main(dataset):
     else:
         X_train, y_train = getData(dataset)
 
-    # TODO: Comprobar si es un dataset con atributos categóricos o no: https://stackoverflow.com/questions/26924904/check-if-dataframe-column-is-categorical
+    # TODO: Do we have to standardize the encoded categorical data?
     X_train_standardized = stadardizeData(X_train)
-    getDecisionTree(X_train_standardized, y_train)
-    #getKNearestNeighbors(X_train_standardized, y_train)
+
+    # Compute decision tree:
+    #getDecisionTree(X_train_standardized, y_train)
+
+    # Compute K-Nearest Neighbor:
+    getKNearestNeighbors(X_train_standardized, y_train)
 
 
 def getDecisionTree(X_train, y_train):
