@@ -22,7 +22,7 @@ def main(dataset):
     else:
         X_train, y_train = getData(dataset)
 
-    # TODO: Do we have to standardize the encoded categorical data?
+    # FIXME: Do we have to standardize the encoded categorical data?
     X_train_standardized = stadardizeData(X_train)
 
     # Compute decision tree:

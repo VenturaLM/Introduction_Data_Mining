@@ -13,7 +13,7 @@ def getCategoricalColumns(first_row):
 
     Returns
     -------
-
+    List with indexex of the categorical feature columns.
     """
 
     # List with the index of each categorial column.
