@@ -5,9 +5,14 @@ import matplotlib.pyplot as plt
 from sklearn import tree
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import cross_val_score
-from sklearn import preprocessing
 from sklearn.decomposition import PCA
-from sklearn.datasets import load_iris  # Iris dataset
+
+# Iris dataset:
+from sklearn.datasets import load_iris
+
+# Additional files:
+from data_management import getData
+from pre_processing import stadardizeData
 
 
 @click.command()
@@ -19,53 +24,10 @@ def main(dataset):
     else:
         X_train, y_train = getData(dataset)
 
+    # TODO: Comprobar si es un dataset con atributos categóricos o no: https://stackoverflow.com/questions/26924904/check-if-dataframe-column-is-categorical
     X_train_standardized = stadardizeData(X_train)
     getDecisionTree(X_train_standardized, y_train)
     #getKNearestNeighbors(X_train_standardized, y_train)
-
-
-def getData(dataset):
-    """
-    Gets the data of a dataset.
-
-    Parameters
-    ----------
-    dataset: String
-        Path of the dataset.
-
-    Returns
-    -------
-    X_train: ndarray
-        Values of the data (n_samples, n_features).
-    y_train: ndarray
-        Target.
-
-    """
-
-    # Load the dataset.
-    data = pd.read_csv(dataset, header=1, sep=';')
-    X_train = data.iloc[:, :-1].values
-    y_train = data.iloc[:, -1].values
-
-    return X_train, y_train
-
-
-def stadardizeData(data):
-    """
-    Standardize data.
-
-    Parameters
-    ----------
-    data: ndarray.
-        Data to standardize.
-
-    Returns
-    -------
-    Standardized data.
-    """
-
-    min_max_scaler = preprocessing.MinMaxScaler()
-    return min_max_scaler.fit_transform(data)
 
 
 def getDecisionTree(X_train, y_train):
@@ -139,7 +101,7 @@ def computePCADecomposition(X_train):
     principalComponents = pca.fit_transform(X_train)
 
     # Percentage of variance explained by each of the selected components.
-    print(pca.explained_variance_ratio_)
+    print(f'\tExplained variance ratio = {pca.explained_variance_ratio_}')
 
     # TODO: Fix scatter plot colors.
     plt.scatter(principalComponents[:, 0], principalComponents[:, 1])
