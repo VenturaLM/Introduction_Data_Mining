@@ -12,7 +12,9 @@
 			"console": "integratedTerminal",
 			"args": [
 				"-d",
-				"../datasets/bank/bank.csv"
+				"../datasets/bank/bank.csv",
+				"-p",
+				"2"
 			]
 		}
 	]

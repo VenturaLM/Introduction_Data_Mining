@@ -1,4 +1,5 @@
 import pandas as pd
+import plotly.express as px
 from pre_processing import encodeCategoricalFeatures
 
 
@@ -42,12 +43,17 @@ def getData(dataset):
         Values of the data (n_samples, n_features).
     y_train: ndarray
         Target.
-
+    df: dataframe
     """
 
-    # Load the dataset.
-    data = pd.read_csv(dataset, header=0, sep=';')
-    df = pd.DataFrame(data)
+    if dataset != None:
+        # Load the dataset passed by args.
+        data = pd.read_csv(dataset, header=0, sep=';')
+        df = pd.DataFrame(data)
+    else:
+        # If the is no dataset, load iris.
+        df = px.data.iris()
+
     X_train = df.iloc[:, :-1].values
     y_train = df.iloc[:, -1].values
 
@@ -60,4 +66,4 @@ def getData(dataset):
         X_train = df.iloc[:, :-1].values
         y_train = df.iloc[:, -1].values
 
-    return X_train, y_train
+    return X_train, y_train, df
