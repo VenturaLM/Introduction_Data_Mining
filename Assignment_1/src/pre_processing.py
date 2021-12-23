@@ -1,4 +1,7 @@
+import numpy as np
+
 from sklearn import preprocessing
+from sklearn.utils.random import sample_without_replacement
 # Sklearn preprocessing: https://scikit-learn.org/stable/modules/preprocessing.html
 
 
@@ -48,3 +51,27 @@ def encodeCategoricalFeatures(df, indexes):
     df[cols_to_encode] = enc.fit_transform(df[cols_to_encode])
 
     return df
+
+
+def sampleWithoutReplacement(data, target, percentage):
+    """
+    Get a % samples of a population.
+
+    Parameters
+    ----------
+    data: nparray
+        Original standardized data.
+    percentage:
+        Percentage of desired random samples.
+
+    Returns
+    -------
+    n_poplation * percentage random samples and targets.
+    """
+
+    n_population = len(data)
+
+    samples = sample_without_replacement(
+        n_population=n_population, n_samples=n_population*percentage).tolist()
+
+    return data[samples], target[samples]
