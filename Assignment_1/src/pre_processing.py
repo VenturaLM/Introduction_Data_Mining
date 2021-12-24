@@ -2,7 +2,11 @@ import numpy as np
 
 from sklearn import preprocessing
 from sklearn.utils.random import sample_without_replacement
-# Sklearn preprocessing: https://scikit-learn.org/stable/modules/preprocessing.html
+from sklearn.impute import SimpleImputer
+# Sklearn preprocessing:
+# 	https://scikit-learn.org/stable/modules/preprocessing.html
+# Sklearn impute missing values:
+#	https://scikit-learn.org/stable/modules/impute.html
 
 
 def stadardizeData(data):
@@ -75,3 +79,21 @@ def sampleWithoutReplacement(data, target, percentage):
         n_population=n_population, n_samples=n_population*percentage).tolist()
 
     return data[samples], target[samples]
+
+
+def imputeMissingValues(data):
+    """
+    Impute missing values.
+
+    Parameters
+    ----------
+    data: nparray
+        Original data (still not standardized).
+
+    Returns
+    -------
+    Data with missing values imputed.
+    """
+
+    imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+    return imp.fit_transform(data)

@@ -12,7 +12,7 @@ from sklearn.decomposition import PCA
 
 # Additional files:
 from data_management import getData
-from pre_processing import stadardizeData
+from pre_processing import imputeMissingValues, stadardizeData
 from pre_processing import sampleWithoutReplacement
 
 
@@ -24,8 +24,11 @@ from pre_processing import sampleWithoutReplacement
 @click.option('--pca', '-p', default=2, type=int, required=False, show_default=True, help=u'Indicates the value for the dimensions of the PCA components.')
 def main(dataset, sample, tree, knn, pca):
 
-    # Get the data of a '.csv' file.
+    # Load the data from a file.
     X_train, y_train, df = getData(dataset)
+
+    # Imputation of missing values.
+    X_train = imputeMissingValues(X_train)
 
     # Standardize the data.
     X_train_standardized = stadardizeData(X_train)
@@ -100,7 +103,7 @@ def getKNearestNeighbors(X_train, y_train):
 
 def computePCADecomposition(df, X_train, dimensions):
     """
-    Principal component analysis (PCA). Reduce data dimensionality to 'n' components.
+    Principal component analysis (PCA). Reduce data dimensionality to 'n' components. Afterwards, a '.png' image is exported with a scatter plot.
         See: https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60
 
     Parameters
@@ -110,7 +113,7 @@ def computePCADecomposition(df, X_train, dimensions):
 
     Returns
     -------
-
+    Nothing
     """
 
     pca = PCA(n_components=dimensions)
