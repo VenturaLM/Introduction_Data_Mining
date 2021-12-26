@@ -12,7 +12,7 @@
 			"console": "integratedTerminal",
 			"args": [
 				"-d",
-				"../datasets/bank/bank.csv",
+				"../datasets/weather.arff",
 				"-t",
 				"-k"
 			]

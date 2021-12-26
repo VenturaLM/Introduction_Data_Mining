@@ -70,7 +70,7 @@ def sampleWithoutReplacement(data, target, percentage):
 
     Returns
     -------
-    n_poplation * percentage random samples and targets.
+    n_population * percentage random samples and targets.
     """
 
     n_population = len(data)
