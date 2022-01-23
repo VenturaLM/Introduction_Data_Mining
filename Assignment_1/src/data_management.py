@@ -60,7 +60,7 @@ def getData(dataset):
         else:
             print('ERROR: file format not supported.')
     else:
-        # If the is no dataset, load iris.
+        # If there is no dataset, load iris.
         print('Loading iris dataset.')
         df = px.data.iris()
 

@@ -13,7 +13,7 @@ import wittgenstein as lw
 from sklearn.model_selection import train_test_split
 
 # Read dataset
-df = pd.read_csv("iris.csv")
+df = pd.read_csv("datasets/iris.csv")
 train, test = train_test_split(df, test_size=.33)
 
 # Create and train model
@@ -27,4 +27,3 @@ print(ripper_clf.out_model())
 X_test = test.drop('variety', axis=1)
 y_test = test['variety']
 print(ripper_clf.score(X_test, y_test))
-
